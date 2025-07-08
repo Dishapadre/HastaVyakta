@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Detected Hand Gesture</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Detected Hand Gesture</h1>
+
+    <div class="images">
+      <div class="image-card">
+        <h3>Original</h3>
+        <img src="{{ original }}" alt="Original Image">
+      </div>
+      <div class="image-card">
+        <h3>CLAHE Enhanced</h3>
+        <img src="{{ clahe }}" alt="CLAHE Image">
+      </div>
+      <div class="image-card">
+        <h3>Detected Mudra</h3>
+        <img src="{{ output }}" alt="YOLO Output">
+      </div>
+    </div>
+
+    {% if hasta_info %}
+<h2 class="section-title">Recognized Hasta Details</h2>
+<div class="hasta-grid-columns">
+  <div class="hasta-column">
+    <h4>Name</h4>
+    {% for name, details in hasta_info.items() %}
+      <div class="hasta-cell">{{ name.title() }}</div>
+    {% endfor %}
+  </div>
+  <div class="hasta-column">
+    <h4>Meaning</h4>
+    {% for name, details in hasta_info.items() %}
+      <div class="hasta-cell">{{ details['MEANING'] }}</div>
+    {% endfor %}
+  </div>
+  <div class="hasta-column">
+    <h4>Shloka</h4>
+    {% for name, details in hasta_info.items() %}
+      <div class="hasta-cell">{{ details['SHLOKA'] }}</div>
+    {% endfor %}
+  </div>
+  <div class="hasta-column">
+    <h4>Hand Positioning</h4>
+    {% for name, details in hasta_info.items() %}
+      <div class="hasta-cell">{{ details['HAND_POSITIONING'] }}</div>
+    {% endfor %}
+  </div>
+  <div class="hasta-column">
+    <h4>Usage</h4>
+    {% for name, details in hasta_info.items() %}
+      <div class="hasta-cell">{{ details['USAGE'] }}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+<a href="{{ url_for('index') }}">
+  <button type="button">Back to Upload</button>
+</a>
+
+</body>
+</html>

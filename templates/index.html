@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasta Recognition</title>
+    <style>
+        body {
+            background: url('static/background.jpg');
+            background-size: contain;
+            background-position: center; /* Ensures the image is centered */
+            background-attachment: fixed; 
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            padding-top: 150px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+/* New style for the page title at the top */
+        .page-title {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5rem;
+            font-weight: normal;
+            color: #fff;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+            margin: 0;
+            font-weight: bold;
+            white-space: nowrap;   /* Prevent line wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .upload-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px #fff;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        input[type="file"], button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            background-color: #444;
+            color: #fff;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e91e63;
+        }
+        .bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 100px;
+  padding: 40px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 2px solid #fff;
+  flex-wrap: wrap;
+}
+
+.info-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 12px;
+  padding: 25px;
+  width: 300px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+
+.read-more-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.read-more-btn:hover {
+  background-color: #e91e63;
+}
+.info-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 15px;
+}
+
+    </style>
+</head>
+<body>
+    <!-- This is the new heading at the top of the page -->
+    <div class="page-title">
+        HastaVyakta:Mudra Recognition & Analysis
+    </div>
+    <div class="upload-box">
+        <h1>Upload Your Hasta Image</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <br>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+    <div class="bottom-container">
+  <div class="info-box">
+    <img src="{{ url_for('static', filename='container1.jpg') }}" class="info-img" alt="Hasta Image">
+    <h3>PROJECT INTRODUCTION</h3>
+    <p class="text short">HastaVyakta is an AI-powered tool developed to recognize and analyze Samyuta Hastas,  </p>
+    <p class="text full" style="display: none;">Which are two-hand gestures fundamental to Bharatanatyam, the classical dance form of South India.By integrating deep learning and advanced image processing techniques, HastaVyakta offers a seamless fusion of cultural heritage and modern technology. </p>
+    <p>It serves as an interactive platform for dancers, students, and researchers to explore the depth and symbolism of these gestures, making the traditional art form more accessible and analyzable through intelligent automation.</p>
+    <button class="read-more-btn" onclick="toggleText(this)">Read More</button>
+</div>
+  <div class="info-box">
+    <img src="{{ url_for('static', filename='container2.jpg') }}" class="info-img" alt="Egg Info 1">
+    <h3>IMPORTANCE OF SAMYUTA HASTAS </h3>
+    <p class="text short">Samyuta Hastas are two-hand gestures that hold deep symbolic and narrative power in Bharatanatyam.</p>
+    <p class="text full" style="display: none;">These two-hand gestures are rich in symbolism and are essential for conveying emotions, actions, and stories within a performance. Each of the 24 traditional Samyuta Hastas carries a specific meaning, is accompanied by classical shlokas, and has defined usages or viniyogas that link the gesture to a particular context or idea.Through these gestures, dancers can depict deities, animals, natural elements, and scenes from daily life or mythology, allowing them to communicate complex narratives without words. </p>
+<p>Mastery of Samyuta Hastas is therefore indispensable for any Bharatanatyam practitioner aiming to perform with authenticity, artistic integrity, and cultural precision.</p>
+    <button class="read-more-btn" onclick="toggleText(this)">Read More</button>
+</div>
+  <div class="info-box">
+    <img src="{{ url_for('static', filename='container3.jpg') }}" class="info-img" alt="Egg Info 1">
+    <h3> HOW OUR MODEL WORKS</h3>
+    <p class="text short">The AI engine behind HastaVyakta  </p>
+    <p class="text full" style="display: none;">Once an image is uploaded, it is preprocessed through resizing, enhancement (using CLAHE), and hand segmentation to improve clarity.</p>
+    <p>The refined image is then analyzed by the model, which identifies the specific hasta and displays its name, meaning, associated shloka, hand positioning, and traditional usage. The model is trained on a diverse dataset of over 1,200 labeled images across 24 gesture classes, ensuring high accuracy and culturally accurate recognition.</p>
+    <button class="read-more-btn" onclick="toggleText(this)">Read More</button>
+</div>
+</div>
+<script>
+  function toggleText(button) {
+    const box = button.parentElement;
+    const shortText = box.querySelector('.short');
+    const fullText = box.querySelector('.full');
+
+    const isFullVisible = fullText.style.display === 'block';
+
+    if (isFullVisible) {
+      fullText.style.display = 'none';
+      shortText.style.display = 'block';
+      button.textContent = 'Read More';
+    } else {
+      fullText.style.display = 'block';
+      shortText.style.display = 'none';
+      button.textContent = 'Read Less';
+    }
+  }
+</script>
+
+
+
+</body>
+</html>
